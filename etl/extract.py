@@ -1,5 +1,3 @@
-python
-
 import pandas as pd
 
 DATA_URL = "https://raw.githubusercontent.com/...csv"
