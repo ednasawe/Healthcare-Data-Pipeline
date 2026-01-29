@@ -1,9 +1,11 @@
+import os
 from fastapi import FastAPI
 from sqlalchemy import create_engine
 import pandas as pd
 
 app = FastAPI()
-engine = create_engine("postgresql://user:password@localhost:5432/healthdb")
+DB_URL =os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/healthdb")
+engine = create_engine("DB_URL")
 
 
 @app.get("/health")

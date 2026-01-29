@@ -1,7 +1,8 @@
+import os
 from sqlalchemy import create_engine
 import pandas as pd
 
-DB_URL = "postgresql://user:password@localhost:5432/healthdb"
+DB_URL = os.getenv("DATABASE_URL", "postgresql://postgres:postgres@localhost:5432/healthdb")
 
 def load():
     engine = create_engine(DB_URL)
