@@ -1,16 +1,21 @@
+from core.logger import get_logger
 from extract import extract
 from transform import transform
 from load import load
-import logging
 
-logging.basicConfig(level=logging.INFO)
+logger = get_logger(__name__)
 
 def run():
-    logging.info("Starting ETL")
-    df = extract()
-    df = transform(df)
-    load(df)
-    logging.info("ETL completed")
+    logger.info("Starting ETL pipeline")
 
-#if __name__ == " __main__":
-#run()
+    df = extract()
+    logger.info(f"Ectracted {len(df)} records")
+
+    df = transform(df)
+    logger.info("Transformation completed")
+
+    load(df)
+    logger.info("Data loaded into database")
+
+if __name__ == " __main__":
+    run()

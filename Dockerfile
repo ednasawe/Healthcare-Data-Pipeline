@@ -36,10 +36,13 @@ RUN adduser \
 # into this layer.
 RUN --mount=type=cache,target=/root/.cache/pip \
     --mount=type=bind,source=requirements.txt,target=requirements.txt \
-    python -m pip install -r requirements.txt
+    python -m pip install --no-cache-dir -r requirements.txt
+
+# Create logs directory and give permissions
+RUN mkdir -p /app/logs && chown -R 1000:1000 /app/logs
 
 # Switch to the non-privileged user to run the application.
-USER appuser
+USER 1000
 
 # Copy the source code into the container.
 COPY . .
@@ -48,4 +51,4 @@ COPY . .
 EXPOSE 8000
 
 # Run the application.
-CMD (uvicorn 'api.main:app' --host=0.0.0.0 --port=8000)
+CMD ["sh", "-c", "python wait_for_db.py && python -m etl.run_pipeline.py && uvicorn api.main:app --host=0.0.0.0 --port=8000"]
