@@ -1,6 +1,6 @@
 import time
 import os
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.exc import OperationalError
 
 raw_url = os.getenv("DATABASE_URL")
@@ -18,7 +18,7 @@ def wait_for_db(retries=10, delay=3):
     for i in range(retries):
         try:
             with engine.connect() as conn:
-                conn.execute("SELECT 1")
+                conn.execute(text("SELECT 1"))
 
             print("Database is ready")
             return
