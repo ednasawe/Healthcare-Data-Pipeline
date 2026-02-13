@@ -1,5 +1,5 @@
 import os
-from db.wait_for_db import wait_for_db
+from database.wait_for_db import wait_for_db
 from fastapi import FastAPI
 from sqlalchemy import create_engine
 import pandas as pd
