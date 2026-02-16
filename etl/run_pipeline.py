@@ -9,7 +9,7 @@ def run():
     logger.info("Starting ETL pipeline")
 
     df = extract()
-    logger.info(f"Ectracted {len(df)} records")
+    logger.info(f"Extracted {len(df)} records")
 
     df = transform(df)
     logger.info("Transformation completed")
@@ -17,5 +17,5 @@ def run():
     load(df)
     logger.info("Data loaded into database")
 
-if __name__ == " __main__":
+if __name__ == "__main__":
     run()

@@ -8,10 +8,10 @@ if not raw_url:
 
 DB_URL = raw_url.strip()
 
-def load():
+def load(df):
     engine = create_engine(DB_URL)
     df = pd.read_csv("etl/datasets/diabetes.csv")
-    df.to_sql("diabetes_data", engine, if_exists="replace", index=False)
+    df.to_sql("records", engine, if_exists="replace", index=False)
     print("Load completed")
 
 if __name__ == "__main__":

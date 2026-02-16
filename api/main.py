@@ -25,6 +25,6 @@ app = FastAPI()
 @app.get("/health")
 def get_data(limit: int = 10):
     logger.info(f"Fetching {limit} healthcare records")
-    df = pd.read_sql(f"SELECT * FROM life_expectancy {LIMIT}", engine)
+    df = pd.read_sql(f"SELECT * FROM diabetes_data LIMIT {limit}", engine)
 
     return df.to_dict(orient="records")

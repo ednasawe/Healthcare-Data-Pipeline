@@ -53,4 +53,4 @@ ENV PYTHONPATH=/app
 EXPOSE 8000
 
 # Run the application.
-CMD ["sh", "-c", "python wait_for_db.py && python -m etl.run_pipeline && uvicorn api.main:app --host=0.0.0.0 --port=8000"]
+CMD ["sh", "-c", "python database/wait_for_db.py && python -m etl.run_pipeline && uvicorn api.main:app --host=0.0.0.0 --port=8000"]

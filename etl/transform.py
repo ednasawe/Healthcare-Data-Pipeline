@@ -1,10 +1,8 @@
 
 import pandas as pd
 
-def transform():
-    df.dropna()
-    df.columns = [c.lower() for c in df.columns]
+def transform(df):
+    # Example transformations
+    df.columns = df.columns.str.lower()
+    df = df.drop_duplicates()
     return df
-
-#if __name__ == "__main__":
- #   transform()
