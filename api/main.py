@@ -1,7 +1,7 @@
 import os
 from database.wait_for_db import wait_for_db
 from fastapi import FastAPI
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 from core.logger import get_logger
 
@@ -24,7 +24,15 @@ app = FastAPI()
 
 @app.get("/health")
 def get_data(limit: int = 10):
-    logger.info(f"Fetching {limit} healthcare records")
-    df = pd.read_sql(f"SELECT * FROM diabetes_data LIMIT {limit}", engine)
+    try:
+        logger.info(f"Fetching {limit} healthcare records")
 
-    return df.to_dict(orient="records")
+        query = text("SELECT * FROM records LIMIT :limit")
+        with engine.connect() as conn:
+            df = pd.read_sql(query, conn, params={"limit": limit})
+
+        return df.to_dict(orient="records")
+
+    except Exception as e:
+        logger.error(f"Error fetching data: {str(e)}")
+        return {"error": str(e)}

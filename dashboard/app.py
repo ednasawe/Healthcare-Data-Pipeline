@@ -34,18 +34,18 @@ if df.empty:
 #Summary metrics
 col1, col2, col3 = st.columns(3)
 col1.metric("Total Records Loaded", len(df))
-col2.metric("Average Glucose", round(df["glucose"].mean(), 2))
-col3.metric("Diabetes Rate", f"{round(df['outcome'].mean()*100, 2)}%")
+col2.metric("Average Diabetes_012", round(df["Diabetes_012"].mean(), 2))
+col3.metric("HighChol", f"{round(df['HighChol'].mean()*100, 2)}%")
 
 st.divider()
 
 #Charts
-st.subheader("Outcome Distribution")
-fig1 = px.histogram(df, x="outcome")
+st.subheader("HighChol Distribution")
+fig1 = px.histogram(df, x="HighChol")
 st.plotly_chart(fig1, use_container_width=True)
 
-st.subheader("Glucose vs BMI")
-fig2 = px.scatter(df, x="glucose", y="bmi", color="outcome")
+st.subheader("Diabetes_012 vs BMI")
+fig2 = px.scatter(df, x="Diabetes_012", y="bmi", color="HighChol")
 st.plotly_chart(fig2, use_container_width=True)
 
 
